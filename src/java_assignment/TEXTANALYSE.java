@@ -6,6 +6,7 @@ import java.applet.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// Used strictfp to ensure that the application is WORA (Write-Once-Run-Anywhere)
 public strictfp class TEXTANALYSE extends Applet implements ActionListener {
 
     Label textBoxCaption;    //Caption for the text box
@@ -14,7 +15,7 @@ public strictfp class TEXTANALYSE extends Applet implements ActionListener {
     Button resetButton;      //Reset button
     String inputText;
     int stringLength1, stringLength2, stringLength3, stringLength4, stringLength5, stringLength6, stringLength7, stringLength8, stringLength9;    //Variables with the string lengths stored for future comparison
-    double MWL, StringCount, SLB1, SLB2, SLB3, SLB4, SLB5, SLB6, SLB7, SLB8, SLB9, SLB11, SLB22, SLB33, SLB44, SLB55, SLB66, SLB77, SLB88, SLB99;//used for working out coordinates
+    double meanLength, stringCounter, SLB1, SLB2, SLB3, SLB4, SLB5, SLB6, SLB7, SLB8, SLB9, SLB11, SLB22, SLB33, SLB44, SLB55, SLB66, SLB77, SLB88, SLB99;//used for working out coordinates
 
 
     public void init() {
@@ -34,10 +35,10 @@ public strictfp class TEXTANALYSE extends Applet implements ActionListener {
     }
 
     public void paint(Graphics g) {
-        g.drawString("BWD", 425, 340);    // Puts my signature in the bottom corner
+        g.drawString("BWD", 410, 340);    // Puts my signature in the bottom corner
         inputField.setText("");
         inputText = ("");
-        StringCount = 0;
+        stringCounter = 0;
         g.drawLine(50, 300, 410, 300);     //Drawing the x-axis
         g.drawLine(50, 300, 50, 50);       //Drawing the y-axis
         g.setColor(Color.red);                            //Setting the bar color
@@ -85,14 +86,14 @@ public strictfp class TEXTANALYSE extends Applet implements ActionListener {
         g.setColor(Color.black);
         g.drawString("9", 390, 315);
         g.drawString("" + stringLength9 + "", 40, (int) SLB99);
-        g.drawString("Mean word length is: " + MWL, 200, 330);
+        g.drawString("Mean word length is: " + meanLength, 200, 330);
     }
 
     public void actionPerformed(ActionEvent e) {
         inputText = inputField.getText();    //Sets a variable as the inputted text
         inputText = inputText.replaceAll("\\p{P}", ""); //Removes punctuation from the text
         for (String rectangleVariable : inputText.split(" ")) {   //Splits the string by spaces
-            StringCount += 1;      //Adds 1 to the string count
+            stringCounter += 1;      //Adds 1 to the string count
             if (rectangleVariable.length() == 1)      
                 stringLength1 += 1;
             if (rectangleVariable.length() == 2)
@@ -111,41 +112,42 @@ public strictfp class TEXTANALYSE extends Applet implements ActionListener {
                 stringLength8 += 1;
             if (rectangleVariable.length() == 9)
                 stringLength9 += 1;
-            MWL = ((stringLength9 * 9) + (stringLength8 * 8) + (stringLength7 * 7) + (stringLength6 * 6) + (stringLength5 * 5) + (stringLength4 * 4) + (stringLength3 * 3) + (stringLength2 * 2) + (stringLength1 * 1)) / StringCount;
+            meanLength = ((stringLength9 * 9) + (stringLength8 * 8) + (stringLength7 * 7) + (stringLength6 * 6) + (stringLength5 * 5) + (stringLength4 * 4) + (stringLength3 * 3) + (stringLength2 * 2) + (stringLength1 * 1)) / stringCounter;
             //^^^Working out the Mean Word Length
-            SLB1 = ((250 / StringCount) * stringLength1);  //Working out the coordinates of each bar
+            SLB1 = ((250 / stringCounter) * stringLength1);  //Working out the coordinates of each bar
             SLB11 = (300 - SLB1);
             SLB1 = (300 - SLB11);
 
-            SLB2 = ((250 / StringCount) * stringLength2);
+
+            SLB2 = ((250 / stringCounter) * stringLength2);
             SLB22 = (300 - SLB2);
             SLB2 = (300 - SLB22);
 
-            SLB3 = ((250 / StringCount) * stringLength3);
+            SLB3 = ((250 / stringCounter) * stringLength3);
             SLB33 = (300 - SLB3);
             SLB3 = (300 - SLB33);
 
-            SLB4 = ((250 / StringCount) * stringLength4);
+            SLB4 = ((250 / stringCounter) * stringLength4);
             SLB44 = (300 - SLB4);
             SLB4 = (300 - SLB44);
 
-            SLB5 = ((250 / StringCount) * stringLength5);
+            SLB5 = ((250 / stringCounter) * stringLength5);
             SLB55 = (300 - SLB5);
             SLB5 = (300 - SLB55);
 
-            SLB6 = ((250 / StringCount) * stringLength6);
+            SLB6 = ((250 / stringCounter) * stringLength6);
             SLB66 = (300 - SLB6);
             SLB6 = (300 - SLB66);
 
-            SLB7 = ((250 / StringCount) * stringLength7);
+            SLB7 = ((250 / stringCounter) * stringLength7);
             SLB77 = (300 - SLB7);
             SLB7 = (300 - SLB77);
 
-            SLB8 = ((250 / StringCount) * stringLength8);
+            SLB8 = ((250 / stringCounter) * stringLength8);
             SLB88 = (300 - SLB8);
             SLB8 = (300 - SLB88);
 
-            SLB9 = ((250 / StringCount) * stringLength9);
+            SLB9 = ((250 / stringCounter) * stringLength9);
             SLB99 = (300 - SLB9);
             SLB9 = (300 - SLB99);
 
@@ -162,8 +164,8 @@ public strictfp class TEXTANALYSE extends Applet implements ActionListener {
             stringLength7 = 0;
             stringLength8 = 0;
             stringLength9 = 0;
-            MWL = 0;
-            StringCount = 0;
+            meanLength = 0;
+            stringCounter = 0;
         }
         repaint(); //Re-painting the applet
     }
