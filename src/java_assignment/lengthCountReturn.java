@@ -1,4 +1,13 @@
 package java_assignment;
+
+import static java.lang.System.out;
+
+import java.io.BufferedReader;
+import java.util.Arrays;
+import java.io.*;
+import java.util.Scanner;
+import static java.lang.System.in;
+import static java.lang.System.out;
 //import java.applet.*;
 //import java.awt.*;
 //import java.awt.event.*;
@@ -11,10 +20,31 @@ public class lengthCountReturn {
 	public static void main(String[] args) {
 //		String userInput = "I do not like green eggs and ham I do not like them, Sam-I-Am";
 		String userInput = "Hey how are you today";
+		ListFiles();
+		
 		int [] wordLengthCount = buildLengthsAndCounts(userInput);
 		System.out.println(meanWordCalc(wordLengthCount));
 //		printArray(wordLengthCount);
 	}
+	
+	
+	public String readFile(String filename)
+	{
+	   String content = null;
+	   File file = new File(filename); //for ex foo.txt
+	   try {
+	       FileReader reader = new FileReader(file);
+	       char[] chars = new char[(int) file.length()];
+	       reader.read(chars);
+	       content = new String(chars);
+	       reader.close();
+	   } catch (IOException e) {
+	       e.printStackTrace();
+	   }
+	   return content;
+	}
+	
+	
 	
 
 	public static int characterCount(int[] builtText) {
