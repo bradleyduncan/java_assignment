@@ -1,15 +1,5 @@
 package java_assignment;
-//import static java.lang.System.out;
-//
-//import java.io.BufferedReader;
-//import java.util.Arrays;
-//import java.io.*;
-//import java.util.Scanner;
-//import static java.lang.System.in;
-//import static java.lang.System.out;
-//import java.applet.*;
-//import java.awt.*;
-//import java.awt.event.*;
+
 
 public class lengthCountReturn {
 	
@@ -36,7 +26,7 @@ public class lengthCountReturn {
 	
 	public static double meanWordCalc(int wordLengthCount[]) { 
 		int WordCount = 0, CharCount = 0, j; 
-		double MeanLength; 
+		double meanLength; 
 
 		for (j = 1; j < wordLengthCount.length; j++) { 
 		WordCount += wordLengthCount[j]; 
@@ -46,9 +36,9 @@ public class lengthCountReturn {
 		CharCount += j * wordLengthCount[j]; 
 		} 
 
-		MeanLength = (double) CharCount / (double) WordCount; 
+		meanLength = (double) CharCount / (double) WordCount; 
 
-		return MeanLength+1; 
+		return meanLength+1; 
 		} 
 	
 	/* START method that prints out contents of an array  */
